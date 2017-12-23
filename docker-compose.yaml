@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  db:
+    image: mongo
+    tty: true
+    ports: 
+      - 27017:27017
+    environment:
+      # MYSQL_ROOT_PASSWORD: '@n1m@7@P@55wd'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - mongo-db:/var/lib/mongo-db
+
+  app:
+    build: ./app
+    tty: true
+    volumes:
+      - ./app/src:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  
+volumes:
+  mongo-db:
+    driver: local
