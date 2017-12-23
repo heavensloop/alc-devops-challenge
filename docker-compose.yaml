@@ -2,26 +2,27 @@ version: '2'
 
 services:
   db:
-    image: mongo
-    tty: true
+    image: aashreys/mongo-auth
     ports: 
       - 27017:27017
     environment:
-      # MYSQL_ROOT_PASSWORD: '@n1m@7@P@55wd'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      - AUTH=yes
+      - MONGODB_ADMIN_USER=admin
+      - MONGODB_ADMIN_PASS=admin123
+      - MONGODB_APPLICATION_DATABASE=databaseName
+      - MONGODB_APPLICATION_USER=john
+      - MONGODB_APPLICATION_PASS=doe
     volumes:
-      - mongo-db:/var/lib/mongo-db
+      - ./data:/data/db
 
   app:
     build: ./app
     tty: true
+    restart: always
+    command: npm start
     volumes:
       - ./app/src:/app
     ports:
       - "3000:3000"
     depends_on:
       - db
-  
-volumes:
-  mongo-db:
-    driver: local

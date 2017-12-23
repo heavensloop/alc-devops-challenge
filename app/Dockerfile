@@ -9,5 +9,5 @@ COPY src/ /app
 #Install Dependencies
 RUN cd /app && npm install
 
-#Start the Application
-RUN cd /app && npm start
+#Install Jasmine for tests..
+RUN cd /app && npm install jasmine
