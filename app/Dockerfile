@@ -1,13 +1,14 @@
-FROM bitnami/node
+FROM node:latest
 MAINTAINER Popsana Barida <popsyjunior@gmail.com>
 
-ENV TERM xterm
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 #Copy the source file..
-COPY src/ /app
+COPY src/ /usr/src/app
 
 #Install Dependencies
-RUN cd /app && npm install
+RUN cd /usr/src/app && npm install
 
 #Install Jasmine for tests..
-RUN cd /app && npm install jasmine
+#RUN cd /usr/src/app && npm install jasmine
